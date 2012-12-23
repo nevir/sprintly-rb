@@ -20,6 +20,13 @@ class Sprintly::Product
   end
 
 
+  # Relationships
+  # -------------
+  def people
+    @client.api.get_people(self.id).map { |p| Sprintly::Person.new(p, @client) }
+  end
+
+
   # API Calls
   # ---------
   def update!

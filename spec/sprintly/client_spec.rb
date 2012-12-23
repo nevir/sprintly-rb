@@ -49,7 +49,10 @@ describe Sprintly::Client do
   describe "API calls" do
 
     it "should expose the current user's products" do
-      subject.products.map(&:name).sort.should eq(
+      products = subject.products
+
+      products.all? { |p| p.should be_a(Sprintly::Product) }
+      products.map(&:name).sort.should eq(
         ["Investigation of Warms", "Pelage Cleanliness", "Subvocalization", "World Domination"]
       )
     end

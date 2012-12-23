@@ -39,6 +39,19 @@ describe Sprintly::Product do
 
   end
 
+  describe "Relationships" do
+
+    it "should expose the people that have access to this product" do
+      people = subject.people
+
+      people.all? { |p| p.should be_a(Sprintly::Person) }
+      people.map(&:name).sort.should eq(
+        ["Bogart Furbottom", "Fluffy McFaddon", "Professor Bigglesworth"]
+      )
+    end
+
+  end
+
   describe "API Calls" do
 
     it "should get updates when calling update!" do
