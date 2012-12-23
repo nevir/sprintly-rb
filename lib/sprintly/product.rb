@@ -37,13 +37,6 @@ class Sprintly::Product
 
   # API Calls
   # ---------
-  def save!
-    self.unpack! @client.api.update_product(self.id,
-      name:     self.name,
-      archived: self.archived?,
-    )
-  end
-
   def update!
     self.unpack! @client.api.get_product(self.id)
   end
