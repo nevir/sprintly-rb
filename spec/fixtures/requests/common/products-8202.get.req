@@ -1,0 +1,10 @@
+HTTP/1.1 410 GONE
+Server: nginx
+Date: Sun, 23 Dec 2012 00:34:32 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Cookie
+X-Response-Time: 57ms
+
+{"message":"Product is archived.","code":410}
