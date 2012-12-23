@@ -53,19 +53,28 @@ class Sprintly::Client
   # Request Helpers
   # ---------------
 
-  # Retrieve a resource by URL (relative to `options[:endpoint]`)
-  def get(path, params={})
-    @connection.get("#{path}.json", params).body
+  # Make a request (relative to `options[:endpoint]`)
+  def request(method, path, params=nil)
+    response = @connection.send(method, "#{path}.json", params)
+
+    # Success!
+    if response.status >= 200 && response.status < 300
+      return response.body
+    else
+      raise Sprintly::Error.from_response(response)
+    end
   end
 
-  # Modify/create a resource by URL (relative to `options[:endpoint]`)
-  def post(path, params={})
-    @connection.post("#{path}.json", params).body
+  def get(path, params=nil)
+    self.request(:get, path, params)
   end
 
-  # Delete a resource by URL
-  def delete(path, params={})
-    @connection.delete("#{path}.json", params).body
+  def post(path, params=nil)
+    self.request(:post, path, params)
+  end
+
+  def delete(path, params=nil)
+    self.request(:delete, path, params)
   end
 
 end

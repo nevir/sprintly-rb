@@ -60,14 +60,27 @@ describe Sprintly::Product do
       subject.should be_archived
     end
 
-    it "should unarchive when calling unarchive!" do
-      product = described_class.new(client.api.get_product(8202), client)
-      with_fixture_set(:restores) do
-        product.unarchive!
+    describe "with an archived product" do
+
+      subject do
+        all_products = client.api.get_products
+
+        described_class.new(all_products.find { |p| p["id"] == 8202}, client)
       end
 
-      a_request(:post, %r{/api/products/8094}).should have_been_made.once
-      subject.should_not be_archived
+      it "should raise an error when updating" do
+        expect { subject.update! }.to raise_error(Sprintly::Error::Archived)
+      end
+
+      it "should unarchive when calling unarchive!" do
+        with_fixture_set(:restores) do
+          subject.unarchive!
+        end
+
+        a_request(:post, %r{/api/products/8202}).should have_been_made.once
+        subject.should_not be_archived
+      end
+
     end
 
   end
