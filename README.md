@@ -1,4 +1,4 @@
-Sprintly Client
+Sprintly Client [![Build Status](https://travis-ci.org/nevir/sprintly-rb.png)](https://travis-ci.org/nevir/sprintly-rb)
 ===============
 
 A Ruby client for [sprint.ly](https://sprint.ly)'s [API](http://help.sprint.ly/knowledgebase/topics/15784-api).
