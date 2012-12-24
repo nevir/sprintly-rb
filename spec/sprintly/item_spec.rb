@@ -91,4 +91,20 @@ describe Sprintly::Item do
 
   end
 
+  describe "Relationships" do
+
+    it "should expose any child items" do
+      children = subject.children.sort_by(&:number)
+      children.map(&:number).should eq([2,3,4,5,6])
+      children.map(&:title).should eq([
+        "Check Craigslist",
+        "Check 4chan for remote henchmen",
+        "Reach out to past henchmen",
+        "Determine henchmen quality bar",
+        "Set up henching contract w/ Wolfram & Hart",
+      ])
+    end
+
+  end
+
 end

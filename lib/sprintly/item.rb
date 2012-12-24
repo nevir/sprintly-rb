@@ -41,4 +41,12 @@ class Sprintly::Item
     @email[task.to_s] if @email
   end
 
+  # Relationships
+  # -------------
+  def children
+    client.api.get_child_items(self.product.id, self.number).map { |payload|
+      client.model(:Item, payload)
+    }
+  end
+
 end
