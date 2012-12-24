@@ -17,6 +17,9 @@ class Sprintly::API
   end
 
   def append_annotation(product_id, item_number, params={})
+    # for consistency's sake, translate verb -> label
+    params[:label] = params.delete(:verb) if params.has_key? :verb
+
     self.client.post("products/#{product_id}/items/#{item_number}/annotations", params)
   end
 

@@ -108,12 +108,12 @@ describe Sprintly::Item do
     it "should expose any annotations" do
       annotations = subject.annotations
 
-      annotations.size.should eq(1)
-      annotation = annotations.first
-
-      annotation.user.should be_a(Sprintly::Person)
-      annotation.user.id.should eq(9708)
-      annotation.action.should eq("unrolled all the yarn")
+      annotations.map(&:action).should eq([
+        "unrolled all the yarn",
+        "re-rolled the yarn into a pristine state",
+        "unrolled all the yarn",
+      ])
+      annotations.map(&:user).map(&:id).should eq([9708, 9708, 9708])
     end
 
   end
@@ -122,7 +122,7 @@ describe Sprintly::Item do
 
     it "should allow creation of new annotations" do
       new_annotation = subject.append_annotation(
-        label:  "Yarn",
+        verb:   "Yarn",
         action: "unrolled all the yarn",
         body:   "That dastardly feline!",
       )
