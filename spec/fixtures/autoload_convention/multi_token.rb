@@ -1,5 +1,5 @@
-module Fixtures
-  module AutoloadConvention
-    MultiToken = :multi
-  end
+module Fixtures; end
+
+module Fixtures::AutoloadConvention
+  MultiToken = :multi
 end

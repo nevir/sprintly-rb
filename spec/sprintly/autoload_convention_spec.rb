@@ -34,4 +34,8 @@ describe Sprintly::AutoloadConvention do
     namespace::ALLCAPS.should eq(:yelling)
   end
 
+  it "shouldn't pick up constants in parent namespaces" do
+    namespace::String.should eq("I am a string!")
+  end
+
 end

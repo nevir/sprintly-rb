@@ -1,5 +1,5 @@
 module Fixtures; end
 
 module Fixtures::AutoloadConvention
-  ALLCAPS = :yelling
+  String = "I am a string!"
 end
