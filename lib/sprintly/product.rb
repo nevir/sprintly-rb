@@ -10,7 +10,7 @@ class Sprintly::Product
   # Attributes
   # ----------
   attribute :id, read_only: true
-  attribute :created_at, type: :Time, read_only: true
+  attribute :created_at, :Time, read_only: true
   attribute :name
   attribute :archived?
   attribute :admin?

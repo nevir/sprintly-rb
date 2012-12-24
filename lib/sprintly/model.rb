@@ -46,7 +46,10 @@ module Sprintly::Model
       @known_attributes ||= {}
     end
 
-    def attribute(name, options={})
+    def attribute(name, *args)
+      options = args.last.is_a?(Hash) ? args.pop : {}
+      options[:type] = args.pop if args.size > 0
+
       self.known_attributes[name] = options
       ivar_name = name.to_s.gsub(/\?$/, '')
 

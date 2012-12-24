@@ -23,11 +23,11 @@ describe Sprintly::Model do
 
       attribute :id, read_only: true
       attribute :name
-      attribute :type, type: :Symbol
+      attribute :type,       :Symbol
       attribute :admin?
-      attribute :created_at, type: :Time
-      attribute :arr_val, type: :GoodType
-      attribute :bad, type: :BadType
+      attribute :created_at, :Time
+      attribute :arr_val,    :GoodType
+      attribute :bad,        :BadType
     end
   }
 
