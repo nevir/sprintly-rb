@@ -9,6 +9,11 @@ RSpec::Core::RakeTask.new(:spec) do |task|
   # No special configuration yet.
 end
 
+desc "Run the tests in CI mode"
+task :ci do
+  Rake::Task["spec"].execute
+end
+
 desc "Run tests with code coverage"
 task :spec_with_coverage do
   prev = ENV["COVERAGE"]

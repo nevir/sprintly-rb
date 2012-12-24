@@ -1,6 +1,20 @@
 require "rubygems"
-require "spork"
-require "spork/ext/ruby-debug"
+
+begin
+  require "spork"
+  require "spork/ext/ruby-debug"
+rescue LoadError
+  # No spork? No problem!
+  module Spork
+    def self.prefork(&block)
+      block.call
+    end
+
+    def self.each_run(&block)
+      block.call
+    end
+  end
+end
 
 Spork.prefork do
   # Allow requires relative to the spec dir
