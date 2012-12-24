@@ -13,14 +13,26 @@ class Sprintly::API
   # -----------
   # http://help.sprint.ly/knowledgebase/articles/98416-annotations
   def get_annotations(product_id, item_number)
-    self.client.get("products/#{product_id}/items/#{item_number}/annotations")
+    result = self.client.get("products/#{product_id}/items/#{item_number}/annotations")
+    # require "debugger"; debugger
+    # To allow for proper identification of the annotations
+    result.each do |annotation|
+      annotation["product_id"]  = product_id
+      annotation["item_number"] = item_number
+    end
+
+    result
   end
 
   def append_annotation(product_id, item_number, params={})
     # for consistency's sake, translate verb -> label
     params[:label] = params.delete(:verb) if params.has_key? :verb
 
-    self.client.post("products/#{product_id}/items/#{item_number}/annotations", params)
+    result = self.client.post("products/#{product_id}/items/#{item_number}/annotations", params)
+    result["product_id"]  = product_id
+    result["item_number"] = item_number
+
+    result
   end
 
 

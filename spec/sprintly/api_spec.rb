@@ -13,14 +13,14 @@ describe Sprintly::API do
   # Annotations
   # -----------
   it "should hit the correct endpoint for get_annotations" do
-    client.should_receive(:get).with("products/12/items/23/annotations")
+    client.should_receive(:get).with("products/12/items/23/annotations").and_return([])
     subject.get_annotations(12, 23)
   end
 
   it "should hit the correct endpoint for append_annotation" do
     client.should_receive(:post).with("products/12/items/23/annotations",
       label: "App", action: "did something super awesome", body: "**sweet!**",
-    )
+    ).and_return({})
     subject.append_annotation(12, 23, label: "App", action: "did something super awesome", body: "**sweet!**")
   end
 

@@ -2,8 +2,9 @@ class Sprintly::Annotation
   include Sprintly::Model
 
   def self.payload_identity(payload)
-    # TODO: `id` does not appear to be unique across all projects by the user?
-    [payload["id"]]
+    # Note that the API layer synthesizes `product_id` and `item_number`.
+    # The `sprint.ly` endpoint does not emit either.
+    [payload["product_id"], payload["item_number"], payload["id"]]
   end
 
   # Attributes
