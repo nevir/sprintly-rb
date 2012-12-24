@@ -5,6 +5,7 @@ class Sprintly::Item
     [payload["product"]["id"], payload["number"]]
   end
 
+
   # Attributes
   # ----------
   ### Identity
@@ -40,6 +41,7 @@ class Sprintly::Item
   def email_for(task)
     @email[task.to_s] if @email
   end
+
 
   # Relationships
   # -------------
