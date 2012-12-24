@@ -7,16 +7,30 @@ module Sprintly::Model
   # Model Methods
   # -------------
   def initialize(payload, client)
-    self.unpack! payload
+    @_client = client
 
-    @client = client
+    self.unpack! payload
+  end
+
+  def client
+    @_client
   end
 
   def unpack!(payload)
     payload.each do |key, value|
-      value = Sprintly::Model.unpack_value(value)
-      self.instance_variable_set(:"@#{key}", value)
+      self.unpack_value! key, value
     end
+  end
+
+  def unpack_value!(key, value)
+    # Since we set ivars directly from payloads, make sure they don't stomp over
+    # our private state by accident.
+    return if key.to_s.start_with? "_"
+
+    options = self.class.known_attributes[key.to_sym] || {}
+    value   = Sprintly::Model.unpack_value(value, options[:type], self.client)
+
+    self.instance_variable_set(:"@#{key}", value)
   end
 
 
@@ -28,7 +42,12 @@ module Sprintly::Model
 
   module ClassMethods
 
+    def known_attributes
+      @known_attributes ||= {}
+    end
+
     def attribute(name, options={})
+      self.known_attributes[name] = options
       ivar_name = name.to_s.gsub(/\?$/, '')
 
       class_eval <<-end_eval, __FILE__, __LINE__
@@ -40,7 +59,7 @@ module Sprintly::Model
       unless options[:read_only]
         class_eval <<-end_eval, __FILE__, __LINE__
           def #{ivar_name}=(new_value)
-            @#{ivar_name} = new_value
+            self.unpack_value! :#{ivar_name}, new_value
           end
         end_eval
       end
@@ -53,17 +72,28 @@ module Sprintly::Model
   # -------
   class << self
 
-    # We expect a pretty static format; not going to go overboard.
-    #
-    # `2012-12-18T08:13:44+00:00`
-    ISO8601 = /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}(Z|[+\-]\d{1,2}:\d{1,2})$/
+    def model_namespace
+      Sprintly
+    end
 
-    def unpack_value(value)
-      if value.is_a?(String) && value =~ ISO8601
-        return Time.parse(value)
+    def model_class(name_or_class)
+      return name_or_class if name_or_class.is_a? Class
+
+      self.model_namespace.const_get(name_or_class, false)
+    end
+
+    def unpack_value(value, type, client)
+      return value unless type
+      return nil if value.nil?
+
+      case type
+      when :Time then return Time.parse(value)
       end
 
-      value
+      # We fall back to models if it's not an explicitly known type
+      client.model(type, value)
+    rescue Exception
+      raise "Unknown/broken attribute type #{type.inspect}: #{$!}"
     end
 
   end

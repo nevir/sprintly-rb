@@ -27,7 +27,7 @@ class Sprintly::Error < StandardError
 
     def from_response(response)
       if error_class_name = STATUS_MAPPING[response.status]
-        error_class = self.const_get(error_class_name)
+        error_class = self.const_get(error_class_name, false)
       else
         error_class = self
       end

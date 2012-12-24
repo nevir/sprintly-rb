@@ -1,21 +1,29 @@
 describe Sprintly::Client::IdentityMap do
 
+  let(:fixture_namespace) {
+    namespace = Module.new do
+      def self.name
+        "Fixtures::Client::IdentityMap"
+      end
+    end
+    namespace.extend Sprintly::AutoloadConvention
+  }
+
   let(:client_class) {
     identity_map_mod = described_class
 
     Class.new do
       include identity_map_mod
-
-      def model_class(class_name)
-        require "fixtures/client/identity_map/#{class_name}"
-        Fixtures::Client::IdentityMap.const_get(class_name)
-      end
     end
   }
 
   subject {
     client_class.new
   }
+
+  before(:each) do
+    Sprintly::Model.stub(:model_namespace) { fixture_namespace }
+  end
 
   it "should allow creation of new models" do
     subject.model(:Simple, id: 123, name: "Hi")

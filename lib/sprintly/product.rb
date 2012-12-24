@@ -10,7 +10,7 @@ class Sprintly::Product
   # Attributes
   # ----------
   attribute :id, read_only: true
-  attribute :created_at, read_only: true
+  attribute :created_at, type: :Time, read_only: true
   attribute :name
   attribute :archived?
   attribute :admin?
@@ -27,22 +27,22 @@ class Sprintly::Product
   # Relationships
   # -------------
   def people
-    @client.api.get_people(self.id).map { |p| @client.model(:Person, p) }
+    client.api.get_people(self.id).map { |p| client.model(:Person, p) }
   end
 
 
   # API Calls
   # ---------
   def update!
-    self.unpack! @client.api.get_product(self.id)
+    self.unpack! client.api.get_product(self.id)
   end
 
   def archive!
-    self.unpack! @client.api.archive_product(self.id)
+    self.unpack! client.api.archive_product(self.id)
   end
 
   def unarchive!
-    self.unpack! @client.api.update_product(self.id, archived: false)
+    self.unpack! client.api.update_product(self.id, archived: false)
   end
 
 end

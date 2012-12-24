@@ -34,7 +34,7 @@ describe Sprintly::Error do
     described_class::STATUS_MAPPING.each do |status, class_name|
       it "should map #{status} statuses to Sprintly::Error::#{class_name}" do
         error = described_class.from_response(failing_request(status))
-        error.should be_a(Sprintly::Error.const_get(class_name))
+        error.should be_a(Sprintly::Error.const_get(class_name, false))
       end
     end
 

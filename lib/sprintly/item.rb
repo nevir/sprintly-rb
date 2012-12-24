@@ -10,5 +10,6 @@ class Sprintly::Item
   attribute :number, read_only: true
   attribute :title
   attribute :type
+  attribute :product, as: :Product
 
 end

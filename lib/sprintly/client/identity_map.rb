@@ -1,16 +1,8 @@
 module Sprintly::Client::IdentityMap
 
-  def model_class(model_name)
-    Sprintly.const_get(model_name)
-  end
-
   # Builds or retrieves/updates a given model
   def model(name_or_class, payload)
-    if name_or_class.is_a? Class
-      model_class = name_or_class
-    else
-      model_class = self.model_class(name_or_class)
-    end
+    model_class = Sprintly::Model.model_class(name_or_class)
 
     begin
       identity = model_class.payload_identity(payload)
