@@ -87,7 +87,8 @@ module Sprintly::Model
       return nil if value.nil?
 
       case type
-      when :Time then return Time.parse(value)
+      when :Symbol then return value.to_sym
+      when :Time   then return Time.parse(value)
       end
 
       # We fall back to models if it's not an explicitly known type

@@ -4,10 +4,10 @@ describe Sprintly::Model do
     {
       "id"         => 1234,
       "name"       => "Ohai Thurr",
+      "type"       => "awesome",
       "created_at" => "2012-12-12T08:13:44+04:00",
       "arr_val"    => ["one", "two", "three"],
       "admin"      => true,
-
       "hash_val" => {
         "fizz" => "buzz",
         "foo"  => "barf",
@@ -23,6 +23,7 @@ describe Sprintly::Model do
 
       attribute :id, read_only: true
       attribute :name
+      attribute :type, type: :Symbol
       attribute :admin?
       attribute :created_at, type: :Time
       attribute :arr_val, type: :GoodType
@@ -71,6 +72,10 @@ describe Sprintly::Model do
 
     it "should coerce Time objects" do
       subject.created_at.should eq(Time.parse("2012-12-12T04:13:44Z"))
+    end
+
+    it "should coerce Symbol objects" do
+      subject.type.should eq(:awesome)
     end
 
     it "should coerce attributes in setters" do
