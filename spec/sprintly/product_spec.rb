@@ -2,7 +2,7 @@ describe Sprintly::Product do
   include_context "common client"
 
   subject do
-    described_class.new(client.api.get_product(8094), client)
+    client.model(described_class, client.api.get_product(8094))
   end
 
   describe "Attributes" do

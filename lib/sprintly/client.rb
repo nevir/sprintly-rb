@@ -4,6 +4,8 @@ require "faraday"
 require "faraday_middleware"
 
 class Sprintly::Client
+  extend  Sprintly::AutoloadConvention
+  include Sprintly::Client::IdentityMap
 
   def initialize(account_email, api_token, options={})
     @options = {
@@ -42,11 +44,11 @@ class Sprintly::Client
 
   # All products the current user has access to
   def products
-    self.api.get_products.map { |p| Sprintly::Product.new(p, self) }
+    self.api.get_products.map { |p| model(:Product, p) }
   end
 
   def create_product(name)
-    Sprintly::Product.new(self.api.create_product(name), self)
+    model(:Product, self.api.create_product(name))
   end
 
 
@@ -55,7 +57,7 @@ class Sprintly::Client
 
   # Make a request (relative to `options[:endpoint]`)
   def request(method, path, params=nil)
-    response = @connection.send(method, "#{path}.json", params)
+    response = self.connection.send(method, "#{path}.json", params)
 
     # Success!
     if response.status >= 200 && response.status < 300

@@ -2,7 +2,7 @@ describe Sprintly::Item do
   include_context "common client"
 
   subject do
-    described_class.new(client.api.get_item(8094, 1), client)
+    client.model(described_class, client.api.get_item(8094, 1))
   end
 
   describe "Attributes" do

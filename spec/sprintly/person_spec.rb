@@ -2,7 +2,7 @@ describe Sprintly::Person do
   include_context "common client"
 
   subject do
-    described_class.new(client.api.get_person(8094, 9709), client)
+    client.model(described_class, client.api.get_person(8094, 9709))
   end
 
   describe "Attributes" do

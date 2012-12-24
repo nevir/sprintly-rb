@@ -3,6 +3,10 @@
 class Sprintly::Person
   include Sprintly::Model
 
+  def self.payload_identity(payload)
+    payload["id"]
+  end
+
   # Attributes
   # ----------
   attribute :id

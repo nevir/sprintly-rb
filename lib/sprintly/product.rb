@@ -3,6 +3,10 @@
 class Sprintly::Product
   include Sprintly::Model
 
+  def self.payload_identity(payload)
+    payload["id"]
+  end
+
   # Attributes
   # ----------
   attribute :id
@@ -23,7 +27,7 @@ class Sprintly::Product
   # Relationships
   # -------------
   def people
-    @client.api.get_people(self.id).map { |p| Sprintly::Person.new(p, @client) }
+    @client.api.get_people(self.id).map { |p| @client.model(:Person, p) }
   end
 
 
