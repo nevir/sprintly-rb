@@ -16,11 +16,6 @@ class Sprintly::API
     self.client.get("products/#{product_id}/items/#{item_number}/annotations")
   end
 
-  # Known params:
-  #
-  # `label`:  General category of action (usually your app name)
-  # `action`: The action that occurred; this is prepended by the user's name.
-  # `body`:   Extended details about the event (Markdown)
   def append_annotation(product_id, item_number, params={})
     self.client.post("products/#{product_id}/items/#{item_number}/annotations", params)
   end

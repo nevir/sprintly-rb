@@ -105,6 +105,33 @@ describe Sprintly::Item do
       ])
     end
 
+    it "should expose any annotations" do
+      annotations = subject.annotations
+
+      annotations.size.should eq(1)
+      annotation = annotations.first
+
+      annotation.user.should be_a(Sprintly::Person)
+      annotation.user.id.should eq(9708)
+      annotation.action.should eq("unrolled all the yarn")
+    end
+
+  end
+
+  describe "Mutation" do
+
+    it "should allow creation of new annotations" do
+      new_annotation = subject.append_annotation(
+        label:  "Yarn",
+        action: "unrolled all the yarn",
+        body:   "That dastardly feline!",
+      )
+
+      new_annotation.user.should be_a(Sprintly::Person)
+      new_annotation.user.id.should eq(9708)
+      new_annotation.action.should eq("unrolled all the yarn")
+    end
+
   end
 
 end

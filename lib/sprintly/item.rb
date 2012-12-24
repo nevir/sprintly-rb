@@ -51,4 +51,27 @@ class Sprintly::Item
     }
   end
 
+  def annotations
+    client.api.get_annotations(self.product.id, self.number).map { |payload|
+      client.model(:Annotation, payload)
+    }
+  end
+
+
+  # Mutation
+  # --------
+
+  # Append a new annotation with the given attributes.
+  #
+  # Known params:
+  #
+  # `label`:  General category of action (usually your app name)
+  # `action`: The action that occurred; this is prepended by the user's name.
+  # `body`:   Extended details about the event (Markdown)
+  def append_annotation(attributes={})
+    payload = client.api.append_annotation(self.product.id, self.number, attributes)
+
+    client.model(:Annotation, payload)
+  end
+
 end
