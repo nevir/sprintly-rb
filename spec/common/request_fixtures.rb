@@ -15,27 +15,22 @@ module Common::RequestFixtures
       Common::RequestFixtures.set_stack.shift
     end
 
-    def with_dangerous_recording(&block)
-      Common::RequestFixtures.allow_recording_of_dangerous_requests = true
-
-      block.call
-    ensure
-      Common::RequestFixtures.allow_recording_of_dangerous_requests = false
-    end
-
   end
 
   @record    = !!ENV["RECORD_REQUESTS"]
+  @dangerous = !!ENV["DANGEROUS_RECORDING_ALLOWED"]
   @cache     = {}
   @set_stack = [:common]
   class << self
 
     attr_reader :set_stack
 
-    attr_accessor :allow_recording_of_dangerous_requests
-
     def recording?
       @record
+    end
+
+    def dangerous_recording?
+      @dangerous
     end
 
     def fixture_path(request, set_name=self.set_stack.first)
@@ -132,7 +127,7 @@ RSpec.configure do |config|
       # If we are recording fixtures, we let some requests go through...
       elsif Common::RequestFixtures.recording?
         # ..but only if they are `GET` requests
-        unless request.method == :get || Common::RequestFixtures.allow_recording_of_dangerous_requests
+        unless request.method == :get || Common::RequestFixtures.dangerous_recording?
           fixture_path = Common::RequestFixtures.fixture_path(request)
           raise "Refusing to record non-GET request, and no fixture recorded at #{fixture_path}"
         end

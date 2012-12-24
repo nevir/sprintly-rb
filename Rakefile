@@ -24,11 +24,20 @@ task :coverage => :spec_with_coverage do
   `open coverage/index.html`
 end
 
-desc "Run the tests in recording mode"
+desc "Run the tests in recording mode (GET requests only)"
 task :record do
   ENV["RECORD_REQUESTS"] = "yes"
 
   Rake::Task["spec"].execute
+end
+
+namespace :record do
+  desc "Run the tests in recording mode (all request types)"
+  task :dangerously do
+    ENV["DANGEROUS_RECORDING_ALLOWED"] = "yes"
+
+    Rake::Task["record"].execute
+  end
 end
 
 desc "Boot up an IRB console w/ sprintly preloaded"
