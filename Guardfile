@@ -30,4 +30,5 @@ guard "rspec", cli: '--drb --drb-port 2731' do
   watch(%r{^spec/.+_spec\.rb$})
 
   watch(%r{^lib/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
+  watch(%r{^spec/fixtures/(.+)/[^/]+$}) { |m| "spec/sprintly/#{m[1]}_spec.rb" }
 end
