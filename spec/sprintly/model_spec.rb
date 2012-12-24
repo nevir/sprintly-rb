@@ -20,7 +20,7 @@ describe Sprintly::Model do
     Class.new do
       include model_mod
 
-      attribute :id
+      attribute :id, read_only: true
       attribute :name
       attribute :admin?
       attribute :created_at
@@ -39,9 +39,13 @@ describe Sprintly::Model do
   end
 
   it "should expose setters for defined attributes" do
-    [:id=, :name=, :admin=, :created_at=, :arr_val=].each do |setter|
+    [:name=, :admin=, :created_at=, :arr_val=].each do |setter|
       subject.should respond_to(setter)
     end
+  end
+
+  it "should not expose setters for read-only attributes" do
+    subject.should_not respond_to(:id=)
   end
 
   it "should coerce ISO8601 timestamps into `Time` objects" do

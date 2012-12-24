@@ -9,7 +9,7 @@ class Sprintly::Person
 
   # Attributes
   # ----------
-  attribute :id
+  attribute :id, read_only: true
   attribute :first_name
   attribute :last_name
   attribute :email

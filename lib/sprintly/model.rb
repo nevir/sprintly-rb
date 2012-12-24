@@ -35,11 +35,15 @@ module Sprintly::Model
         def #{name}
           @#{ivar_name}
         end
-
-        def #{ivar_name}=(new_value)
-          @#{ivar_name} = new_value
-        end
       end_eval
+
+      unless options[:read_only]
+        class_eval <<-end_eval, __FILE__, __LINE__
+          def #{ivar_name}=(new_value)
+            @#{ivar_name} = new_value
+          end
+        end_eval
+      end
     end
 
   end

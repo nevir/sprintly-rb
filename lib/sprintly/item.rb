@@ -7,7 +7,7 @@ class Sprintly::Item
 
   # Attributes
   # ----------
-  attribute :number
+  attribute :number, read_only: true
   attribute :title
   attribute :type
 
