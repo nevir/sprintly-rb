@@ -14,7 +14,6 @@ class Sprintly::API
   # http://help.sprint.ly/knowledgebase/articles/98416-annotations
   def get_annotations(product_id, item_number)
     result = self.client.get("products/#{product_id}/items/#{item_number}/annotations")
-    # require "debugger"; debugger
     # To allow for proper identification of the annotations
     result.each do |annotation|
       annotation["product_id"]  = product_id
