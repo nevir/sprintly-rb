@@ -117,7 +117,7 @@ describe Sprintly::Item do
     end
 
     it "should expose any attachments" do
-      attachments = subject.attachments
+      attachments = subject.attachments.sort_by(&:created_at)
 
       attachments.map(&:name).should eq([
         "il_fullxfull.301243805.jpg",

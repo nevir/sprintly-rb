@@ -7,6 +7,7 @@ class Sprintly::Attachment
 
   # Attributes
   # ----------
+  attribute :id
   attribute :name
   attribute :href
   attribute :created_by, :Person

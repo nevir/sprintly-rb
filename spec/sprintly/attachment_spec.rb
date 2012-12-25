@@ -7,6 +7,10 @@ describe Sprintly::Attachment do
 
   describe "Attributes" do
 
+    it "should have an id" do
+      subject.id.should eq(27046)
+    end
+
     it "should have a name" do
       subject.name.should eq("il_fullxfull.301243805.jpg")
     end
