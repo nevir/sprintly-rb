@@ -101,9 +101,9 @@ describe Sprintly::API do
 
   # Favorites
   # ---------
-  it "should hit the correct endpoint for get_favoriting_users" do
+  it "should hit the correct endpoint for get_item_favorites" do
     client.should_receive(:get).with("products/12/items/23/favorites")
-    subject.get_favoriting_users(12, 23)
+    subject.get_item_favorites(12, 23)
   end
 
   it "should hit the correct endpoint for mark_item_as_favorite" do
@@ -111,14 +111,14 @@ describe Sprintly::API do
     subject.mark_item_as_favorite(12, 23)
   end
 
-  it "should hit the correct endpoint for get_favoriting_user" do
+  it "should hit the correct endpoint for get_item_favorite" do
     client.should_receive(:get).with("products/12/items/23/favorites/34")
-    subject.get_favoriting_user(12, 23, 34)
+    subject.get_item_favorite(12, 23, 34)
   end
 
-  it "should hit the correct endpoint for delete_favorite" do
+  it "should hit the correct endpoint for delete_item_favorite" do
     client.should_receive(:delete).with("products/12/items/23/favorites/34")
-    subject.delete_favorite(12, 23, 34)
+    subject.delete_item_favorite(12, 23, 34)
   end
 
 

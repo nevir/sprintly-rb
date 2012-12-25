@@ -63,7 +63,7 @@ class Sprintly::Item
     }
   end
 
-  def blocking
+  def blocks
     client.api.get_blocked_items(self.product.id, self.number).map { |payload|
       client.model(:ItemBlock, payload)
     }
@@ -72,6 +72,12 @@ class Sprintly::Item
   def comments
     client.api.get_comments(self.product.id, self.number).map { |payload|
       client.model(:Comment, payload)
+    }
+  end
+
+  def favorites
+    client.api.get_item_favorites(self.product.id, self.number).map { |payload|
+      client.model(:ItemFavorite, payload)
     }
   end
 

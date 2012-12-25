@@ -30,3 +30,8 @@ Blocking
 
 * There appears to be no way of getting the items blocked by a given item.
 * When would `unblocked` ever be `true`?
+
+Favorites
+---------
+
+* API docs are out of date; the data format is not even close.

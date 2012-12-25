@@ -110,7 +110,7 @@ class Sprintly::API
   # Favorites
   # ---------
   # http://help.sprint.ly/knowledgebase/articles/98415-favorites
-  def get_favoriting_users(product_id, item_number)
+  def get_item_favorites(product_id, item_number)
     self.client.get("products/#{product_id}/items/#{item_number}/favorites")
   end
 
@@ -119,11 +119,11 @@ class Sprintly::API
     self.client.post("products/#{product_id}/items/#{item_number}/favorites")
   end
 
-  def get_favoriting_user(product_id, item_number, favorite_id)
+  def get_item_favorite(product_id, item_number, favorite_id)
     self.client.get("products/#{product_id}/items/#{item_number}/favorites/#{favorite_id}")
   end
 
-  def delete_favorite(product_id, item_number, favorite_id)
+  def delete_item_favorite(product_id, item_number, favorite_id)
     self.client.delete("products/#{product_id}/items/#{item_number}/favorites/#{favorite_id}")
   end
 

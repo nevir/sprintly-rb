@@ -126,7 +126,7 @@ describe Sprintly::Item do
     end
 
     it "should expose any items that it blocks" do
-      blocks = subject.blocking.sort_by(&:id)
+      blocks = subject.blocks.sort_by(&:id)
 
       blocks.map { |b| b.blocked.title }.should eq([
         "As an evil genius, I want an evil lair so that I can plot in secrecy!.",
@@ -141,6 +141,12 @@ describe Sprintly::Item do
         "Poster idea ^^^  ([found via etsy](http://www.etsy.com/listing/90076611/guild-of-calamitous-intent-recruitment))",
         "Another; [via deviantart this time](http://takachino.deviantart.com/art/Jack-Spicer-Evil-Cat-Genius-XSFA-276288718)",
       ])
+    end
+
+    it "should expose any favoriting users" do
+      favorites = subject.favorites.sort_by(&:id)
+
+      favorites.map { |f| f.user.id }.should eq([9708, 9710])
     end
 
   end
