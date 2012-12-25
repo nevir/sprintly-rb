@@ -125,16 +125,21 @@ describe Sprintly::Item do
       ])
     end
 
-  end
-
-  describe "Blocking" do
-
     it "should expose any items that it blocks" do
       blocks = subject.blocking.sort_by(&:id)
 
       blocks.map { |b| b.blocked.title }.should eq([
         "As an evil genius, I want an evil lair so that I can plot in secrecy!.",
         "As an evil genius, I want to rob the treasury so that I can fund my evil plots.",
+      ])
+    end
+
+    it "should expose any comments" do
+      comments = subject.comments.sort_by(&:id)
+
+      comments.map(&:body).should eq([
+        "Poster idea ^^^  ([found via etsy](http://www.etsy.com/listing/90076611/guild-of-calamitous-intent-recruitment))",
+        "Another; [via deviantart this time](http://takachino.deviantart.com/art/Jack-Spicer-Evil-Cat-Genius-XSFA-276288718)",
       ])
     end
 

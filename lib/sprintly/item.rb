@@ -69,6 +69,12 @@ class Sprintly::Item
     }
   end
 
+  def comments
+    client.api.get_comments(self.product.id, self.number).map { |payload|
+      client.model(:Comment, payload)
+    }
+  end
+
 
   # Mutation
   # --------
