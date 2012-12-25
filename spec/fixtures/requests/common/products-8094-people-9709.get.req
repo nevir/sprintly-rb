@@ -1,13 +1,12 @@
 HTTP/1.1 200 OK
 Server: nginx
-Date: Sun, 23 Dec 2012 22:24:49 GMT
+Date: Tue, 25 Dec 2012 20:39:08 GMT
 Content-Type: application/json
 Transfer-Encoding: chunked
 Connection: keep-alive
 Vary: Accept-Encoding
 Vary: Cookie
-X-Trace: 1BE8DB82C46AEBD8F265276302A1E9BD67DC662ABAA4065DB6F259E0E6
-X-Response-Time: 146ms
+X-Response-Time: 163ms
 Strict-Transport-Security: max-age=604800
 
 {"admin":true,"first_name":"Professor","last_name":"Bigglesworth","id":9709,"email":"drbiggles@nevir.net"}
