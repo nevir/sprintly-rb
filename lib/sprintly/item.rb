@@ -63,6 +63,12 @@ class Sprintly::Item
     }
   end
 
+  def blocking
+    client.api.get_blocked_items(self.product.id, self.number).map { |payload|
+      client.model(:ItemBlock, payload)
+    }
+  end
+
 
   # Mutation
   # --------

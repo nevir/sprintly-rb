@@ -127,6 +127,19 @@ describe Sprintly::Item do
 
   end
 
+  describe "Blocking" do
+
+    it "should expose any items that it blocks" do
+      blocks = subject.blocking.sort_by(&:id)
+
+      blocks.map { |b| b.blocked.title }.should eq([
+        "As an evil genius, I want an evil lair so that I can plot in secrecy!.",
+        "As an evil genius, I want to rob the treasury so that I can fund my evil plots.",
+      ])
+    end
+
+  end
+
   describe "Mutation" do
 
     it "should allow creation of new annotations" do
