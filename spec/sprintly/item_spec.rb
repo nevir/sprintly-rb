@@ -116,6 +116,15 @@ describe Sprintly::Item do
       annotations.map(&:user).map(&:id).should eq([9708, 9708, 9708])
     end
 
+    it "should expose any attachments" do
+      attachments = subject.attachments
+
+      attachments.map(&:name).should eq([
+        "il_fullxfull.301243805.jpg",
+        "_jack_spicer_evil_cat_genius___xsfa__by_takachino-d4khtqm.png"
+      ])
+    end
+
   end
 
   describe "Mutation" do

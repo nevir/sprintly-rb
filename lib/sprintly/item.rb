@@ -57,6 +57,12 @@ class Sprintly::Item
     }
   end
 
+  def attachments
+    client.api.get_attachments(self.product.id, self.number).map { |payload|
+      client.model(:Attachment, payload)
+    }
+  end
+
 
   # Mutation
   # --------
