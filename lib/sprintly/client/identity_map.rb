@@ -5,8 +5,10 @@ module Sprintly::Client::IdentityMap
     model_class = Sprintly::Model.model_class(name_or_class)
 
     begin
-      identity = model_class.payload_identity(payload)
-      raise "identity cannot be nil" if identity.nil?
+      identity = Array(model_class.payload_identity(payload))
+      if identity.size == 0 || identity.any?(&:nil?)
+        raise "identity cannot be nil or contain nil components"
+      end
     rescue
       raise "Failed to determine identity for #{model_class.inspect}: #{$!.message}\npayload: #{payload.inspect}"
     end

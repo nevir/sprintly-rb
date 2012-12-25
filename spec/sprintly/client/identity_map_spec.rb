@@ -33,6 +33,10 @@ describe Sprintly::Client::IdentityMap do
     expect { subject.model(:Simple, {}) }.to raise_error(/identity cannot be nil/)
   end
 
+  it "should throw if any identity component is nil" do
+    expect { subject.model(:Complex, one: 123) }.to raise_error(/identity cannot be nil/)
+  end
+
   it "should allow for clearing of the identity map" do
     old_model = subject.model(:Simple, id: 123, name: "Hi")
 
