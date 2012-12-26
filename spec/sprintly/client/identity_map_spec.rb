@@ -65,6 +65,12 @@ describe Sprintly::Client::IdentityMap do
     new_model.name.should eq("stuff")
   end
 
+  it "allows models to disable the identity map" do
+    model = subject.model(:Disabled, name: "Ohai")
+
+    model.name.should eq("Ohai")
+  end
+
   describe "with existing model" do
 
     let(:existing) {

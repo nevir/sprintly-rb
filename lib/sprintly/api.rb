@@ -99,11 +99,11 @@ class Sprintly::API
     self.client.get("products/#{product_id}/deploys")
   end
 
-  def create_deploy(product_id, environment, item_numbers)
-    self.client.post("products/#{product_id}/deploys",
+  def create_deploy(product_id, environment, item_numbers, extra_params)
+    self.client.post("products/#{product_id}/deploys", extra_params.merge(
       environment: environment,
       numbers:     item_numbers.join(","),
-    )
+    ))
   end
 
 

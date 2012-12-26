@@ -93,9 +93,9 @@ describe Sprintly::API do
 
   it "should hit the correct endpoint for create_deploy" do
     client.should_receive(:post).with("products/12/deploys",
-      environment: "staging", numbers: "23,34,45",
+      environment: "staging", numbers: "23,34,45", version: "1.2.3.4"
     )
-    subject.create_deploy(12, "staging", [23, 34, 45])
+    subject.create_deploy(12, "staging", [23, 34, 45], version: "1.2.3.4")
   end
 
 

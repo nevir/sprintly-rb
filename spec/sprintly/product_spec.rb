@@ -50,6 +50,26 @@ describe Sprintly::Product do
       )
     end
 
+    it "should list all deploys" do
+      deploys = subject.deploys
+
+      deploys.map(&:environment).should eq([
+        "staging",
+        "production",
+      ])
+    end
+
+    it "should allow new deploys to be recorded" do
+      with_fixture_set(:creates) do
+        deploy = subject.record_deploy(:staging, [1,3,4,6,10,15],
+          version: "0.27.93",
+          notes:   "A most EVIL deployment!",
+        )
+
+        deploy.version.should eq("0.27.93")
+      end
+    end
+
   end
 
   describe "Persistence" do

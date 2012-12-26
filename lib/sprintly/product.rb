@@ -30,6 +30,19 @@ class Sprintly::Product
     client.api.get_people(self.id).map { |p| client.model(:Person, p) }
   end
 
+  def deploys
+    client.api.get_deploys(self.id).map { |p| client.model(:Deploy, p) }
+  end
+
+  # Known extra params:
+  # * `notes`
+  # * `version`
+  def record_deploy(environment, item_numbers, extra_params={})
+    payload = client.api.create_deploy(self.id, environment, item_numbers, extra_params)
+
+    client.model(:Deploy, payload)
+  end
+
 
   # Persistence
   # -----------

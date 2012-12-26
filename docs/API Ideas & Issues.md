@@ -21,7 +21,7 @@ Annotations
 * Missing a date field.
 * `id` is a misnomer, seems to be a sort index?
 * Annotations do not embed the `item`.
-* `user` isn't used anywhere else - should it be `created_by`?
+* `user` should probably be `created_by`.
 
 
 Attachments
@@ -33,6 +33,20 @@ Blocking
 
 * There appears to be no way of getting the items blocked by a given item.
 * When would `unblocked` ever be `true`?
+
+
+Deploys
+-------
+
+* Could really use a `created_at` (or `deployed_at`).
+* `user` should probably be `deployed_by`.
+* An `id` would be nice (consistent identity mapping throughout all models).
+* The docs suggest that you get ALL deploys when hitting the `GET` endpoint.
+  Considering each item is fully embedded, that is potentially a _lot_ of data
+  and overhead w/o any sort of pagination!
+* `notes` and `version` are only hinted at in the docs; not called out as
+  supported params.
+
 
 Favorites
 ---------
