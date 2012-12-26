@@ -39,7 +39,7 @@ describe Sprintly::Product do
 
   end
 
-  describe "Relationships" do
+  describe "People" do
 
     it "should expose the people that have access to this product" do
       people = subject.people
@@ -49,6 +49,28 @@ describe Sprintly::Product do
         ["Bogart Furbottom", "Fluffy McFaddon", "Professor Bigglesworth"]
       )
     end
+
+    it "should allow invitations (if the current user is an admin)" do
+      subject.invite("Feverclaw", "Blofeld", "feverfield@nevir.net", true)
+    end
+
+    it "should allow people to be removed from the product by id" do
+      subject.remove_person(9866)
+    end
+
+    it "should allow people to be removed from the product by model" do
+      blofield = with_fixture_set(:creates) {
+        subject.people.find { |p| p.id == 9866 }
+      }
+
+      removed = subject.remove_person(blofield)
+      removed.should be_a(Sprintly::Person)
+      removed.id.should eq(9866)
+    end
+
+  end
+
+  describe "Deploys" do
 
     it "should list all deploys" do
       deploys = subject.deploys

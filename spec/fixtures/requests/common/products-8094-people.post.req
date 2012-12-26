@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 26 Dec 2012 08:00:37 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Accept-Encoding
+Vary: Cookie
+X-Response-Time: 1099ms
+Strict-Transport-Security: max-age=604800
+
+{"admin":true,"first_name":"Feverclaw","last_name":"Blofeld","email":"feverfield@nevir.net"}

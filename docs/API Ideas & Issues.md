@@ -52,3 +52,10 @@ Favorites
 ---------
 
 * API docs are out of date; the data format is not even close.
+
+
+Product
+-------
+
+* The `archived` flag has awkward `y`/`n` semantics, while `true`/`false` work
+  on other endpoints (inviting users)

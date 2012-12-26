@@ -24,12 +24,26 @@ class Sprintly::Product
   end
 
 
-  # Relationships
-  # -------------
+  # People
+  # ------
   def people
     client.api.get_people(self.id).map { |p| client.model(:Person, p) }
   end
 
+  def invite(first_name, last_name, email, admin=false)
+    client.api.invite_person(self.id, first_name, last_name, email, admin)
+  end
+
+  def remove_person(person_or_id)
+    id      = person_or_id.is_a?(Sprintly::Person) ? person_or_id.id : person_or_id
+    payload = client.api.remove_person(self.id, id)
+
+    client.model(:Person, payload)
+  end
+
+
+  # Deploys
+  # -------
   def deploys
     client.api.get_deploys(self.id).map { |p| client.model(:Deploy, p) }
   end
