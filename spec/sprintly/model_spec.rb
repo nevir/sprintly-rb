@@ -11,7 +11,10 @@ describe Sprintly::Model do
       "hash_val" => {
         "fizz" => "buzz",
         "foo"  => "barf",
-      }
+      },
+      "many_good" => [
+        1, 2, 3
+      ]
     }
   }
 
@@ -28,6 +31,7 @@ describe Sprintly::Model do
       attribute :created_at, :Time
       attribute :arr_val,    :GoodType
       attribute :bad,        :BadType
+      attribute :many_good,  Array[:GoodType]
     end
   }
 
@@ -73,6 +77,7 @@ describe Sprintly::Model do
       created_at: Time.parse("2012-12-12T08:13:44+04:00"),
       arr_val:    "Good!",
       bad:        nil,
+      many_good:  ["Good!", "Good!", "Good!"],
     )
   end
 
@@ -97,6 +102,10 @@ describe Sprintly::Model do
 
     it "should coerce known model types" do
       subject.arr_val.should eq("Good!")
+    end
+
+    it "should support lists of known types, too" do
+      subject.many_good.should eq(["Good!", "Good!", "Good!"])
     end
 
   end

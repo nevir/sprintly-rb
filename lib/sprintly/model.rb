@@ -95,6 +95,14 @@ module Sprintly::Model
       return value unless type
       return nil if value.nil?
 
+      if type.is_a? Array
+        actual_type = type.first
+
+        return Array(value).map { |single_value|
+          self.unpack_value(single_value, actual_type, client)
+        }
+      end
+
       case type
       when :Symbol then return value.to_sym
       when :Time   then return Time.parse(value)
