@@ -8,10 +8,10 @@ class Sprintly::Deploy
 
   # Attributes
   # ----------
-  attribute :environment
-  attribute :version
-  attribute :notes
-  attribute :user,  :Person
-  attribute :items, Array[:Item]
+  attribute :environment,         read_only: true
+  attribute :version,             read_only: true
+  attribute :notes,               read_only: true
+  attribute :user,  :Person,      read_only: true
+  attribute :items, Array[:Item], read_only: true
 
 end

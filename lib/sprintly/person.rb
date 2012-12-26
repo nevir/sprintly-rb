@@ -9,11 +9,11 @@ class Sprintly::Person
 
   # Attributes
   # ----------
-  attribute :id, read_only: true
-  attribute :first_name
-  attribute :last_name
-  attribute :email
-  attribute :admin?
+  attribute :id,         read_only: true
+  attribute :first_name, read_only: true
+  attribute :last_name,  read_only: true
+  attribute :email,      read_only: true
+  attribute :admin?,     read_only: true
 
   def name
     [self.first_name, self.last_name].compact.join(" ")

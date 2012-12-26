@@ -7,10 +7,10 @@ class Sprintly::Comment
 
   # Attributes
   # ----------
-  attribute :id
+  attribute :id, read_only: true
 
-  attribute :body
-  attribute :type
-  attribute :created_by, :Person
+  attribute :body,                read_only: true
+  attribute :type,                read_only: true
+  attribute :created_by, :Person, read_only: true
 
 end

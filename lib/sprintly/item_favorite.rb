@@ -7,8 +7,8 @@ class Sprintly::ItemFavorite
 
   # Attributes
   # ----------
-  attribute :id
-  attribute :user,       :Person
-  attribute :created_at, :Time
+  attribute :id,                  read_only: true
+  attribute :user,       :Person, read_only: true
+  attribute :created_at, :Time,   read_only: true
 
 end

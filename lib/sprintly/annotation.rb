@@ -9,9 +9,9 @@ class Sprintly::Annotation
 
   # Attributes
   # ----------
-  attribute :verb
-  attribute :action
-  attribute :body
-  attribute :user, :Person
+  attribute :verb,          read_only: true
+  attribute :action,        read_only: true
+  attribute :body,          read_only: true
+  attribute :user, :Person, read_only: true
 
 end

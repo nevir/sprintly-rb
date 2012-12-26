@@ -7,10 +7,10 @@ class Sprintly::Attachment
 
   # Attributes
   # ----------
-  attribute :id
-  attribute :name
-  attribute :href
-  attribute :created_by, :Person
-  attribute :created_at, :Time
+  attribute :id,                  read_only: true
+  attribute :name,                read_only: true
+  attribute :href,                read_only: true
+  attribute :created_by, :Person, read_only: true
+  attribute :created_at, :Time,   read_only: true
 
 end

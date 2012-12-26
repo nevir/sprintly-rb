@@ -28,7 +28,7 @@ class Sprintly::Item
   attribute :score,       :Symbol
 
   ### Metadata
-  attribute :tags,                 read_only: true
+  attribute :tags
   attribute :short_url,            read_only: true
   attribute :created_at,    :Time, read_only: true
   attribute :last_modified, :Time, read_only: true
