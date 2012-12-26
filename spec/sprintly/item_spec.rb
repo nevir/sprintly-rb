@@ -61,7 +61,10 @@ describe Sprintly::Item do
         subject.should_not be_archived
       end
 
-      pending "should indicate who it is assigned to"
+      it "should indicate who it is assigned to" do
+        subject.assigned_to.should be_a(Sprintly::Person)
+        subject.assigned_to.id.should eq(9708)
+      end
 
       it "should have a score" do
         subject.score.should eq(:XL)
