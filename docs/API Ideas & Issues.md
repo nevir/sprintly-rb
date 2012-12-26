@@ -4,6 +4,9 @@ API Ideas & Issues
 General Issues
 --------------
 
+https://github.com/sprintly/sprint.ly-docs is out of date; the uservoice docs
+seem to be more up to date.  Might want to kill off the github repo.
+
 Some models embed their relationships while others don't; should be consistent.
 It seems a bit odd to embed in some cases, though:
 
