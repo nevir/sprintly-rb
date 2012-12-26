@@ -64,6 +64,18 @@ describe Sprintly::Model do
     subject.instance_variable_defined?(:@_foo).should_not be_true
   end
 
+  it "should expose all the attributes via a hash" do
+    subject.attributes.should eq(
+      id:         1234,
+      name:       "Ohai Thurr",
+      type:       :awesome,
+      admin:      true,
+      created_at: Time.parse("2012-12-12T08:13:44+04:00"),
+      arr_val:    "Good!",
+      bad:        nil,
+    )
+  end
+
   describe "attribute types" do
 
     it "should raise an error for unknown attribute types" do

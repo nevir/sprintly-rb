@@ -9,7 +9,7 @@ class Sprintly::Product
 
   # Attributes
   # ----------
-  attribute :id, read_only: true
+  attribute :id,                read_only: true
   attribute :created_at, :Time, read_only: true
   attribute :name
   attribute :archived?
@@ -31,18 +31,28 @@ class Sprintly::Product
   end
 
 
-  # API Calls
-  # ---------
-  def update!
+  # Persistence
+  # -----------
+  def sync!
     self.unpack! client.api.get_product(self.id)
   end
 
+  def save!
+    self.update!
+  end
+
+  def update!(new_attributes={})
+    new_attributes = self.attributes.merge(new_attributes)
+
+    self.unpack! client.api.update_product(self.id, new_attributes)
+  end
+
   def archive!
-    self.unpack! client.api.archive_product(self.id)
+    self.update! archived: true
   end
 
   def unarchive!
-    self.unpack! client.api.update_product(self.id, archived: false)
+    self.update! archived: false
   end
 
 end

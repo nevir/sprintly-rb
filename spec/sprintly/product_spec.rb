@@ -52,12 +52,12 @@ describe Sprintly::Product do
 
   end
 
-  describe "API Calls" do
+  describe "Persistence" do
 
-    it "should get updates when calling update!" do
+    it "should get updates when calling sync!" do
       product = subject # Initial request is made
       with_fixture_set(:updates) do
-        subject.update!
+        subject.sync!
       end
 
       # We expect it twice: Once when creating the subject, and again on update.
@@ -67,10 +67,24 @@ describe Sprintly::Product do
     end
 
     it "should archive when calling archive!" do
-      subject.archive!
+      with_fixture_set(:archivals) do
+        subject.should_not be_archived
+        subject.archive!
 
-      a_request(:delete, %r{/api/products/8094}).should have_been_made.once
-      subject.should be_archived
+        a_request(:post, %r{/api/products/8094}).should have_been_made.once
+        subject.should be_archived
+      end
+    end
+
+    it "should support saving" do
+      product = subject # Initial request is made prior to save
+      with_fixture_set(:updates) do
+        subject.name = "World Dominashun"
+        subject.save!
+      end
+
+      a_request(:post, %r{/api/products/8094}).should have_been_made.once
+        subject.name.should eq("World Dominashun")
     end
 
     describe "with an archived product" do
@@ -81,17 +95,18 @@ describe Sprintly::Product do
         described_class.new(all_products.find { |p| p["id"] == 8202}, client)
       end
 
-      it "should raise an error when updating" do
-        expect { subject.update! }.to raise_error(Sprintly::Error::Archived)
+      it "should raise an error when syncing" do
+        expect { subject.sync! }.to raise_error(Sprintly::Error::Archived)
       end
 
       it "should unarchive when calling unarchive!" do
         with_fixture_set(:restores) do
+          subject.should be_archived
           subject.unarchive!
-        end
 
-        a_request(:post, %r{/api/products/8202}).should have_been_made.once
-        subject.should_not be_archived
+          a_request(:post, %r{/api/products/8202}).should have_been_made.once
+          subject.should_not be_archived
+        end
       end
 
     end

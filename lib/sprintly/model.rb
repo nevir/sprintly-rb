@@ -33,6 +33,12 @@ module Sprintly::Model
     self.instance_variable_set(:"@#{key}", value)
   end
 
+  def attributes
+    Hash[self.class.known_attributes.map { |name, options|
+      [options[:ivar], self.send(name)]
+    }]
+  end
+
 
   # Model DSL
   # ---------
@@ -49,20 +55,20 @@ module Sprintly::Model
     def attribute(name, *args)
       options = args.last.is_a?(Hash) ? args.pop : {}
       options[:type] = args.pop if args.size > 0
+      options[:ivar] = name.to_s.gsub(/\?$/, '').to_sym
 
       self.known_attributes[name] = options
-      ivar_name = name.to_s.gsub(/\?$/, '')
 
       class_eval <<-end_eval, __FILE__, __LINE__
         def #{name}
-          @#{ivar_name}
+          @#{options[:ivar]}
         end
       end_eval
 
       unless options[:read_only]
         class_eval <<-end_eval, __FILE__, __LINE__
-          def #{ivar_name}=(new_value)
-            self.unpack_value! :#{ivar_name}, new_value
+          def #{options[:ivar]}=(new_value)
+            self.unpack_value! :#{options[:ivar]}, new_value
           end
         end_eval
       end

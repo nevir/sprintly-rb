@@ -7,6 +7,18 @@ module Common::RequestFixtures
 
   module SpecDSL
 
+    def use_fixture_set(set_name)
+      around(:each) do |spec|
+        with_fixture_set(set_name) do
+          spec.run
+        end
+      end
+    end
+
+  end
+
+  module SpecHelper
+
     def with_fixture_set(set_name, &block)
       Common::RequestFixtures.set_stack.unshift set_name.to_sym
 
@@ -112,7 +124,8 @@ if Common::RequestFixtures.recording?
 end
 
 RSpec.configure do |config|
-  config.include Common::RequestFixtures::SpecDSL
+  config.extend  Common::RequestFixtures::SpecDSL
+  config.include Common::RequestFixtures::SpecHelper
 
   config.before(:each) do
     # We use a hash, indexed by object id, to track fixture lookups across the
