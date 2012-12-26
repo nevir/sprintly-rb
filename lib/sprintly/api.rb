@@ -201,13 +201,9 @@ class Sprintly::API
     self.client.get("products/#{product_id}")
   end
 
-  # Currently, you can either update the name of the product, or set its
-  # archived status.
-  def update_product(product_id, options={})
-    params = {}
-    params[:name] = options[:name] if options.has_key? :name
-    if options.has_key? :archived
-      params[:archived] = options[:archived] ? "y" : "n"
+  def update_product(product_id, params={})
+    if params.has_key? :archived
+      params[:archived] = params[:archived] ? "y" : "n"
     end
 
     self.client.post("products/#{product_id}", params)
