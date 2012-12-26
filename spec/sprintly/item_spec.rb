@@ -74,7 +74,9 @@ describe Sprintly::Item do
 
     describe "metadata" do
 
-      pending "should list its tags"
+      it "should list its tags" do
+        subject.tags.should eq(["getting started", "recruiting", "delegation"])
+      end
 
       [:files, :discussion].each do |kind|
         it "should expose email addresses for #{kind} updates" do

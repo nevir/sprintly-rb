@@ -1,13 +1,13 @@
 HTTP/1.1 200 OK
 Server: nginx
-Date: Tue, 25 Dec 2012 20:39:09 GMT
+Date: Wed, 26 Dec 2012 05:31:11 GMT
 Content-Type: application/json
 Transfer-Encoding: chunked
 Connection: keep-alive
 Vary: Accept-Encoding
 Vary: Cookie
-X-Trace: 1B3E18A565E70103B114533578DD342951299CB2EB84AFCD8931850AB3
-X-Response-Time: 140ms
+X-Trace: 1B7FFF38F785D1EF2DBBA42D911C39CF5893A7C8545CE9513A8B4A3860
+X-Response-Time: 106ms
 Strict-Transport-Security: max-age=604800
 
 [{"body":"That dastardly feline!","action":"unrolled all the yarn","verb":"Yarn","id":3,"user":{"first_name":"Fluffy","last_name":"McFaddon","created_at":"2012-12-18T08:13:43+00:00","email":"fluffaddon@nevir.net","last_login":"2012-12-25T19:05:57+00:00","id":9708}},{"body":"Let the cycle continue","action":"re-rolled the yarn into a pristine state","verb":"Yarn","id":4,"user":{"first_name":"Fluffy","last_name":"McFaddon","created_at":"2012-12-18T08:13:43+00:00","email":"fluffaddon@nevir.net","last_login":"2012-12-25T19:05:57+00:00","id":9708}},{"body":"That dastardly feline!","action":"unrolled all the yarn","verb":"Yarn","id":5,"user":{"first_name":"Fluffy","last_name":"McFaddon","created_at":"2012-12-18T08:13:43+00:00","email":"fluffaddon@nevir.net","last_login":"2012-12-25T19:05:57+00:00","id":9708}}]
