@@ -2,7 +2,11 @@ language: ruby
 bundler_args: --without development
 script: bundle exec rake ci
 rvm:
-  - "1.9.2"
-  - "1.9.3"
-  - jruby-19mode # JRuby in 1.9 mode
+  - 1.9.2
+  - 1.9.3
+  - ruby-head
+  - jruby-19mode
   - rbx-19mode
+matrix:
+  allow_failures:
+    - rvm: ruby-head
