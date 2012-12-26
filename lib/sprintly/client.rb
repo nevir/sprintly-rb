@@ -14,6 +14,8 @@ class Sprintly::Client
     }.merge(options)
 
     @connection = Faraday.new(url: @options[:endpoint]) do |faraday|
+      faraday.headers["User-Agent"] = "sprintly-rb/#{Sprintly::VERSION} (https://github.com/nevir/sprintly-rb)"
+
       # The API also expects form-encoded params when `POST`ing.
       faraday.request :url_encoded
       # [Sprint.ly only supports basic auth for now](http://help.sprint.ly/knowledgebase/articles/98353-authentication)
