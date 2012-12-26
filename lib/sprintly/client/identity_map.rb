@@ -4,6 +4,10 @@ module Sprintly::Client::IdentityMap
   def model(name_or_class, payload)
     model_class = Sprintly::Model.model_class(name_or_class)
 
+    if model_class.respond_to?(:identity_mapping_disabled?) && model_class.identity_mapping_disabled?
+      return model_class.new(payload, self)
+    end
+
     begin
       identity = Array(model_class.payload_identity(payload))
       if identity.size == 0 || identity.any?(&:nil?)
