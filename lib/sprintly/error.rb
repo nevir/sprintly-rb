@@ -2,6 +2,9 @@ class Sprintly::Error < StandardError
   extend Sprintly::AutoloadConvention
 
   STATUS_MAPPING = {
+    400 => :BadArguments,
+    403 => :Unauthorized,
+    404 => :NotFound,
     410 => :Archived,
   }
 
